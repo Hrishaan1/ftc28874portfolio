@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logic Legion | FTC 28874</title>
+    <meta name="description" content="Logic Legion - FTC Team 28874 official site placeholder" />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind custom configuration (colors + container)
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: '#060818',
+              'bg-2': '#071033',
+              neon: '#00fff6',
+              accent: '#7c5cff',
+              'muted-blue': '#12223b'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Small helpers for neon glow and smooth scroll */
+      :root { color-scheme: dark; }
+      html { scroll-behavior: smooth; }
+      .neon-glow { box-shadow: 0 0 20px rgba(0,255,246,0.08), 0 0 8px rgba(124,92,255,0.06); }
+    </style>
+  </head>
+  <body class="bg-bg text-gray-100 antialiased selection:bg-accent selection:text-black">
+    <!-- Header / Nav -->
+    <header class="fixed top-0 left-0 right-0 bg-bg/60 backdrop-blur z-40 transition-colors duration-300">
+      <nav role="navigation" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-md bg-gradient-to-tr from-[#05102a] to-[#0b1530] flex items-center justify-center neon-glow ring-1 ring-white/5 overflow-hidden p-1">
+              <!-- Team logo (replace file if needed) -->
+              <img src="logiclegionlogo.jpg" alt="Logic Legion logo" class="w-full h-full object-contain" />
+            </div>
+            <a id="main-title" href="#home" class="text-lg font-semibold tracking-wide ml-1 opacity-0 -translate-y-1 scale-95 pointer-events-none transition-all duration-300">Logic Legion <span class="text-sm text-gray-400">| FTC 28874</span></a>
+          </div>
+          <div class="hidden md:flex items-center gap-6">
+            <a href="#home" class="text-sm hover:text-neon transition">Home</a>
+            <a href="#about" class="text-sm hover:text-neon transition">About</a>
+            <a href="#robot" class="text-sm hover:text-neon transition">Robot</a>
+            <a href="#team" class="text-sm hover:text-neon transition">Team</a>
+            <a href="#sponsors" class="text-sm hover:text-neon transition">Sponsors</a>
+          </div>
+          <div class="md:hidden">
+            <button id="nav-toggle" aria-label="Open menu" class="p-2 rounded-md hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent">
+              <svg id="menu-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+              <svg id="menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden py-3">
+          <a href="#home" class="block py-2 px-2 rounded hover:bg-white/3">Home</a>
+          <a href="#about" class="block py-2 px-2 rounded hover:bg-white/3">About</a>
+          <a href="#robot" class="block py-2 px-2 rounded hover:bg-white/3">Robot</a>
+          <a href="#team" class="block py-2 px-2 rounded hover:bg-white/3">Team</a>
+          <a href="#sponsors" class="block py-2 px-2 rounded hover:bg-white/3">Sponsors</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="home" role="main" class="pt-24">
+      <!-- Hero -->
+      <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 md:p-12 neon-glow shadow-xl">
+          <div class="md:flex md:items-center md:justify-between gap-8">
+            <div class="md:flex-1">
+              <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight">
+                <span class="block text-neon">Logic Legion</span>
+                <span class="block text-gray-300 text-xl sm:text-2xl">FTC 28874</span>
+              </h1>
+              <p class="mt-4 text-gray-300 max-w-2xl">We are Logic Legion (FTC Team 28874) — a team of creators building unique robots and pushing the limits of innovation. Our mission is to inspire through creativity, teamwork, and a passion for robotics. Every season, we strive to think differently, build boldly, and grow stronger together.</p>
+              <p class="mt-4 text-gray-300 max-w-2xl">"kachow" -Logic Legion</p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <a href="#robot" class="inline-flex items-center gap-2 px-5 py-3 border border-white/10 rounded-md text-sm text-gray-200 hover:border-neon">See Our Robot</a>
+              </div>
+            </div>
+            <div class="mt-8 md:mt-0 md:w-2/5">
+              <div class="w-full h-56 sm:h-72 rounded-xl bg-gradient-to-tr from-[#071033] to-[#081125] border border-white/5 flex items-center justify-center">
+                <!-- Robot hero image placeholder -->
+                <span class="text-gray-500">[Hero Robot Image Placeholder — replace with &lt;img src="..." alt="..."/&gt;]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Us -->
+      <section id="about" aria-labelledby="about-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="bg-bg-2 rounded-2xl p-6 neon-glow shadow-md">
+          <h2 id="about-heading" class="text-2xl font-semibold">About Us</h2>
+          <p class="mt-4 text-gray-300">[About Us Placeholder] Logic Legion (FTC Team 28874) was founded in [Year]. We combine computer science, mechanical design, and strategy to build competitive robots. Replace this paragraph with your team's history, values, notable achievements, and outreach activities.</p>
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-lg bg-gradient-to-b from-[#071022]/40 to-transparent border border-white/5">
+              <h3 class="font-medium">Our Philosophy</h3>
+              <p class="text-sm text-gray-300 mt-2">[Replace with philosophy]</p>
+            </div>
+            <div class="p-4 rounded-lg bg-gradient-to-b from-[#071022]/40 to-transparent border border-white/5">
+              <h3 class="font-medium">Education & Outreach</h3>
+              <p class="text-sm text-gray-300 mt-2">[Replace with outreach details — e.g., workshops, demos]</p>
+            </div>
+            <div class="p-4 rounded-lg bg-gradient-to-b from-[#071022]/40 to-transparent border border-white/5">
+              <h3 class="font-medium">Competition Goals</h3>
+              <p class="text-sm text-gray-300 mt-2">[Replace with goals — e.g., build reliability, innovate mechanisms]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <!-- Apex Maker Club -->
+        <section id="apex" aria-labelledby="apex-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+          <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 neon-glow shadow-md">
+            <h2 id="apex-heading" class="text-2xl font-semibold">Our Foundation: The Apex Maker Club</h2>
+            <p class="mt-3 text-gray-300">Logic Legion (FTC 28874) is proud to be powered by the Apex Maker Club, a vibrant, youth-led community dedicated to making STEM experiential learning accessible to all.</p>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+                <h3 class="font-semibold text-neon">Learn</h3>
+                <p class="text-sm text-gray-300 mt-2">Focuses on creative computational thinking and building a 'maker mindset.'</p>
+              </div>
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+                <h3 class="font-semibold text-neon">Make</h3>
+                <p class="text-sm text-gray-300 mt-2">Encourages members to dream, design, and take projects from concept to reality.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+                <h3 class="font-semibold text-neon">Share</h3>
+                <p class="text-sm text-gray-300 mt-2">Builds community by sharing projects and receiving constructive feedback.</p>
+              </div>
+            </div>
+
+            <p class="mt-6 text-gray-300">The Apex Maker Club provides the necessary resources, mentorship, and collaborative spirit that allows our FTC team to thrive.</p>
+
+            <div class="mt-4">
+              <a href="https://apexmakerclub.org/" target="_blank" class="inline-block px-4 py-2 rounded-md bg-accent text-white shadow-sm hover:brightness-95">Visit the Apex Maker Club</a>
+              <span class="ml-3 text-sm text-gray-400"></span>
+            </div>
+          </div>
+        </section>
+
+      <!-- Robot Showcase -->
+      <section id="robot" aria-labelledby="robot-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 neon-glow shadow-md">
+          <h2 id="robot-heading" class="text-2xl font-semibold">The Robot</h2>
+          <p class="mt-3 text-gray-300">[Current Robot Showcase] Replace images and specs below with details of your current season robot.</p>
+
+          <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main card -->
+            <div class="col-span-1 lg:col-span-2 p-4 rounded-xl bg-[#061026]/60 border border-white/5">
+              <div class="flex flex-col md:flex-row gap-4">
+                <div class="md:w-1/2 bg-[#081133] rounded-lg p-3 flex items-center justify-center">
+                  <div class="w-full h-56 rounded-md bg-gradient-to-tr from-[#071033] to-[#0b1730] flex items-center justify-center border border-white/5">
+                    <span class="text-gray-500">[Robot Image Placeholder — replace with &lt;img src="..." alt="..."/&gt;]</span>
+                  </div>
+                </div>
+                <div class="md:w-1/2">
+                  <h3 class="text-xl font-semibold">Current Robot: [Robot Name]</h3>
+                  <p class="mt-2 text-gray-300">[Short description of the robot: capabilities, unique mechanisms, and strategy summary.]</p>
+                  <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5">
+                      <strong>Drive</strong>
+                      <div class="text-gray-300 text-xs mt-1">4WD Mecanum Drive</div>
+                    </div>
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5">
+                      <strong>Control</strong>
+                      <div class="text-gray-300 text-xs mt-1">Rev Control Hub</div>
+                    </div>
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5">
+                      <strong>Intake/Outake</strong>
+                      <div class="text-gray-300 text-xs mt-1">goBilda Boot Wheels/goBilda Rhino Wheels</div>
+                    </div>
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5">
+                      <strong>Sensors</strong>
+                      <div class="text-gray-300 text-xs mt-1">Dead Wheel Odometry</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Specs card -->
+            <aside class="p-4 rounded-xl bg-[#06102a]/60 border border-white/5">
+              <h4 class="font-semibold">Specifications</h4>
+              <ul class="mt-3 text-sm text-gray-300 space-y-2">
+                <li><strong>Weight:</strong> [e.g., 18kg]</li>
+                <li><strong>Battery:</strong> [e.g., 12V LiPo]</li>
+                <li><strong>Motors:</strong> 8 goBilda Yellow Jackets</li>
+                <li><strong>Autonomy:</strong> PID</li>
+                <li><strong>Chassis:</strong> goBilda U-Channel Chassis</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Members -->
+      <section id="team" aria-labelledby="team-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 neon-glow shadow-md">
+          <h2 id="team-heading" class="text-2xl font-semibold">Team Members</h2>
+          <p class="mt-2 text-gray-300">[Team roster — replace with real photos and roles]</p>
+
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <!-- Placeholder member cards (8 shown) -->
+            <!-- Repeatable card start -->
+            <template id="member-card">
+              <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+                <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                  <!-- Replace inner span with <img src="..." alt="Member Name"/> -->
+                  <span class="text-gray-500">Photo</span>
+                </div>
+                <div class="mt-3">
+                  <div class="font-medium">Member Name</div>
+                  <div class="text-xs text-gray-400">Role / Position</div>
+                </div>
+              </div>
+            </template>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Alex Johnson</div>
+                <div class="text-xs text-gray-400">Team Captain</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Riley Chen</div>
+                <div class="text-xs text-gray-400">Drive Lead</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Samira Patel</div>
+                <div class="text-xs text-gray-400">Programming Lead</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Jordan Lee</div>
+                <div class="text-xs text-gray-400">Mechanics Lead</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Taylor Morgan</div>
+                <div class="text-xs text-gray-400">Electrical</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Casey Nguyen</div>
+                <div class="text-xs text-gray-400">Strategy</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
+              <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
+                <span class="text-gray-500">Photo</span>
+              </div>
+              <div class="mt-3">
+                <div class="font-medium">Morgan Diaz</div>
+                <div class="text-xs text-gray-400">Outreach</div>
+              </div>
+            </div>
+            <!-- Repeatable card end -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Sponsors -->
+      <section id="sponsors" aria-labelledby="sponsors-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-12">
+        <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 neon-glow shadow-md">
+          <h2 id="sponsors-heading" class="text-2xl font-semibold">Sponsors</h2>
+          <p class="mt-2 text-gray-300">We gratefully acknowledge our sponsors. Replace the placeholders with sponsor logos (use high-resolution PNG/SVG files).</p>
+
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
+            <!-- Placeholder sponsor logos -->
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+              <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor A</text></svg>
+            </div>
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+              <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor B</text></svg>
+            </div>
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+              <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor C</text></svg>
+            </div>
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+              <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor D</text></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+  <footer role="contentinfo" class="bg-bg/80 border-t border-white/5 mt-6">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="md:flex md:justify-between md:items-start gap-6">
+          <div>
+            <h4 class="font-semibold">Logic Legion</h4>
+            <p class="text-sm text-gray-400 mt-2">FTC Team 28874 — Apex, North Carolina</p>
+            <p class="text-sm text-gray-400 mt-1">Email: <a href="mailto:ftcteam28874@apexmakerclub.org" class="text-neon">ftcteam28874@apexmakerclub.org</a></p>
+          </div>
+          <div class="mt-4 md:mt-0">
+            <h5 class="font-medium">Follow Us</h5>
+            <div class="flex gap-3 mt-3">
+              <a href="https://twitter.com/LogicLegionFTC" title="Logic Legion on Twitter (placeholder)" target="_blank" rel="noopener" aria-label="Twitter" class="p-2 rounded bg-[#071022]/60 hover:bg-white/5">
+                <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43.36a9.06 9.06 0 0 1-2.88 1.1A4.5 4.5 0 0 0 11 5.46v.56A12.94 12.94 0 0 1 3 4s-4 9 5 13a13 13 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+              </a>
+              <a href="https://instagram.com/logic_legion_28874" target="_blank" title="Logic Legion on Instagram (placeholder)" rel="noopener" aria-label="Instagram" class="p-2 rounded bg-[#071022]/60 hover:bg-white/5">
+                <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zM20.5 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@LogicLegions" target="_blank" title="Logic Legion on YouTube (placeholder)" rel="noopener" aria-label="YouTube" class="p-2 rounded bg-[#071022]/60 hover:bg-white/5">
+                <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.7 3.5 12 3.5 12 3.5s-7.7 0-9.4.6A3 3 0 0 0 .5 6.2 31.7 31.7 0 0 0 0 12a31.7 31.7 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.3 20.5 12 20.5 12 20.5s7.7 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 24 12a31.7 31.7 0 0 0-.5-5.8zM10 15V9l5 3-5 3z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 border-t border-white/5 pt-4 text-sm text-gray-500">&copy; <span id="year"></span> Logic Legion — FTC Team 28874. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile nav toggle
+      const navToggle = document.getElementById('nav-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuOpen = document.getElementById('menu-open');
+      const menuClose = document.getElementById('menu-close');
+      navToggle?.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        menuOpen.classList.toggle('hidden');
+        menuClose.classList.toggle('hidden');
+      });
+
+      // Insert current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Accessibility: close mobile menu when a link is clicked
+      mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+      
+      // Sticky header reveal on scroll (throttled via rAF)
+      (function() {
+        const header = document.querySelector('header');
+        const mainTitle = document.getElementById('main-title');
+        let lastKnownScrollY = 0;
+        let ticking = false;
+
+        function onScroll() {
+          lastKnownScrollY = window.scrollY || window.pageYOffset;
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              updateHeader(lastKnownScrollY);
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+
+        function updateHeader(scrollY) {
+          const threshold = 100;
+          if (scrollY > threshold) {
+            // reveal title
+            mainTitle.classList.remove('opacity-0', '-translate-y-1', 'scale-95', 'pointer-events-none');
+            mainTitle.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+            // darken header background and add shadow/border
+            header.classList.add('bg-bg/90', 'shadow-lg', 'border-b', 'border-white/5');
+          } else {
+            // hide title
+            mainTitle.classList.add('opacity-0', '-translate-y-1', 'scale-95', 'pointer-events-none');
+            mainTitle.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+            // revert header styles
+            header.classList.remove('bg-bg/90', 'shadow-lg', 'border-b', 'border-white/5');
+          }
+        }
+
+        // initialize state based on current scroll
+        updateHeader(window.scrollY || window.pageYOffset);
+        window.addEventListener('scroll', onScroll, { passive: true });
+      })();
+
+      // Ensure footer social links open reliably (fallback using window.open)
+      (function() {
+        const socialSelectors = 'footer a[aria-label="Twitter"], footer a[aria-label="Instagram"], footer a[aria-label="YouTube"]';
+        document.querySelectorAll(socialSelectors).forEach(a => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href) return;
+            // If it's an external link, open in a new tab programmatically to avoid navigation interception
+            if (href.startsWith('http')) {
+              e.preventDefault();
+              try {
+                window.open(href, '_blank', 'noopener');
+              } catch (err) {
+                // fallback: set location
+                window.location.href = href;
+              }
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
