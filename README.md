@@ -45,13 +45,11 @@ Key files and content to update:
 
 | File/Section | Purpose | Action Required |
 | :--- | :--- | :--- |
-| **`logiclegionlogo.jpg`** | Header and Favicon logo. | **Replace** with the official team logo file. |
-| **`robot.png`** | Hero and Robot section image. | **Replace** with a photo/render of the current season's robot. |
+| **`robot.png`** | Robot section image. | **Replace** with a photo/render of the current season's robot. |
 | **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
 | **`#about` section** | Team philosophy and competition goals. | **Edit** the placeholder text for philosophy and goals. |
-| **`#team` section** | Team member details. | **Update** names, roles, and replace `<span>Photo</span>` with `<img />` tags for member photos. |
+| **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
 | **`#sponsors` section** | Sponsor logos and details. | **Replace** the placeholder SVG/text with high-resolution sponsor logos. |
-| **Footer (Email)** | Contact information. | **Verify** the email address is current: `ftcteam28874@apexmakerclub.org`. |
 
 ### B. Tailwind Colors
 
