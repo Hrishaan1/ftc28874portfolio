@@ -8,6 +8,12 @@
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // Programmer control flags:
+      // Set PROGRAMMER_CONTROLLED = true to manage sponsors visibility from code.
+      // Then set PROGRAMMER_SHOW_SPONSORS to true/false to show or hide sponsors.
+      // Edit these two values below as a programmer to quickly include or hide the sponsors section.
+      const PROGRAMMER_CONTROLLED = true; // set to true to enable code-based control
+      const PROGRAMMER_SHOW_SPONSORS = false; // set to true to show sponsors, false to hide
       // Tailwind custom configuration (colors + container)
       tailwind.config = {
         theme: {
@@ -25,9 +31,43 @@
     </script>
     <style>
       /* Small helpers for neon glow and smooth scroll */
-      :root { color-scheme: dark; }
+      :root { color-scheme: dark; --neon: #00fff6; }
       html { scroll-behavior: smooth; }
       .neon-glow { box-shadow: 0 0 20px rgba(0,255,246,0.08), 0 0 8px rgba(124,92,255,0.06); }
+
+      /* Shared neon CTA styles (keeps markup DRY without Tailwind build-step)
+         - .neon-cta: base component
+         - .neon-outline: border layer
+         - .neon-fill: animated fill that expands on hover/focus
+         - .label: text + icon container
+      */
+      .neon-cta { position: relative; display: inline-block; background: #071022; color: var(--neon); overflow: hidden; border-radius: 0.5rem; transition: transform .45s cubic-bezier(.2,.9,.2,1), opacity .35s; transform: translateY(8px) scale(.98); opacity: 0; }
+      .neon-cta.is-visible { transform: translateY(0) scale(1); opacity: 1; }
+      .neon-cta:focus { outline: none; }
+      .neon-cta .neon-outline { position: absolute; inset: 0; border: 2px solid var(--neon); border-radius: inherit; pointer-events: none; }
+      .neon-cta .neon-fill { position: absolute; inset: 0; background: var(--neon); border-radius: inherit; transform-origin: left; transform: scaleX(0); transition: transform .32s ease-out; z-index: 0; }
+      .neon-cta:hover .neon-fill, .neon-cta:focus .neon-fill { transform: scaleX(1); }
+      .neon-cta .label { position: relative; z-index: 10; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; transition: color .2s; }
+      .neon-cta:hover .label, .neon-cta:focus .label { color: #000; }
+      .neon-cta .icon { width: 1rem; height: 1rem; flex: 0 0 1rem; display: inline-block; }
+  /* Mobile menu & hamburger animations */
+  .mobile-menu-panel { transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .22s ease; transform-origin: top; position: absolute; left: 0; right: 0; top: 100%; background: rgba(7,16,51,0.96); z-index: 30; padding: 0.75rem 1rem; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+  .mobile-menu-hidden { opacity: 0; transform: translateY(-6px) scaleY(.98); pointer-events: none; max-height: 0; overflow: hidden; }
+  .mobile-menu-visible { opacity: 1; transform: translateY(0) scaleY(1); pointer-events: auto; max-height: 400px; }
+  /* Mobile link staggered fade-in */
+  .mobile-link { display: block; opacity: 0; transform: translateY(-6px); transition: opacity .28s ease, transform .28s cubic-bezier(.2,.9,.2,1); }
+  .mobile-link.is-visible { opacity: 1; transform: translateY(0); }
+  /* Ensure the toggle is a centered square and the two icons overlay cleanly */
+  #nav-toggle { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; padding: 0 !important; box-sizing: border-box; }
+  /* Absolutely center SVGs so they overlay exactly */
+  #nav-toggle { position: relative; }
+  #nav-toggle svg { position: absolute; top: 50%; left: 50%; width: 1.5rem; height: 1.5rem; transform: translate(-50%, -50%); transition: transform .22s ease, opacity .18s ease; }
+  #nav-toggle #menu-open { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
+  #nav-toggle #menu-close { opacity: 0; transform: translate(-50%, -50%) scale(.9) rotate(-8deg); }
+  #nav-toggle.open #menu-open { opacity: 0; transform: translate(-50%, -50%) scale(.9) rotate(8deg); }
+  #nav-toggle.open #menu-close { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
+  /* Position the nav so the absolute mobile menu is anchored correctly */
+  nav[role="navigation"] { position: relative; }
     </style>
   </head>
   <body class="bg-bg text-gray-100 antialiased selection:bg-accent selection:text-black">
@@ -45,24 +85,26 @@
           <div class="hidden md:flex items-center gap-6">
             <a href="#home" class="text-sm hover:text-neon transition">Home</a>
             <a href="#about" class="text-sm hover:text-neon transition">About</a>
+            <a href="#apex" class="text-sm hover:text-neon transition">Foundation</a>
             <a href="#robot" class="text-sm hover:text-neon transition">Robot</a>
             <a href="#team" class="text-sm hover:text-neon transition">Team</a>
             <a href="#sponsors" class="text-sm hover:text-neon transition">Sponsors</a>
           </div>
           <div class="md:hidden">
-            <button id="nav-toggle" aria-label="Open menu" class="p-2 rounded-md hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent">
+            <button id="nav-toggle" aria-label="Open menu" aria-expanded="false" class="p-2 rounded-md hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent">
               <svg id="menu-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-              <svg id="menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              <svg id="menu-close" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
           </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden py-3">
-          <a href="#home" class="block py-2 px-2 rounded hover:bg-white/3">Home</a>
-          <a href="#about" class="block py-2 px-2 rounded hover:bg-white/3">About</a>
-          <a href="#robot" class="block py-2 px-2 rounded hover:bg-white/3">Robot</a>
-          <a href="#team" class="block py-2 px-2 rounded hover:bg-white/3">Team</a>
-          <a href="#sponsors" class="block py-2 px-2 rounded hover:bg-white/3">Sponsors</a>
+        <div id="mobile-menu" class="md:hidden mobile-menu-panel mobile-menu-hidden py-3" aria-hidden="true">
+          <a href="#home" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Home</a>
+          <a href="#about" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">About</a>
+          <a href="#apex" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Foundation</a>
+          <a href="#robot" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Robot</a>
+          <a href="#team" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Team</a>
+          <a href="#sponsors" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Sponsors</a>
         </div>
       </nav>
     </header>
@@ -78,9 +120,13 @@
                 <span class="block text-gray-300 text-xl sm:text-2xl">FTC 28874</span>
               </h1>
               <p class="mt-4 text-gray-300 max-w-2xl">We are Logic Legion (FTC Team 28874) — a team of creators building unique robots and pushing the limits of innovation. Our mission is to inspire through creativity, teamwork, and a passion for robotics. Every season, we strive to think differently, build boldly, and grow stronger together.</p>
-              <p class="mt-4 text-gray-300 max-w-2xl">"Kachow" -Logic Legion</p>
+              <p class="mt-4 text-gray-300 max-w-2xl">"Kachow" —Logic Legion</p>
               <div class="mt-6 flex flex-wrap gap-3">
-                <a href="#robot" class="inline-flex items-center gap-2 px-5 py-3 border border-white/10 rounded-md text-sm text-gray-200 hover:border-neon">See Our Robot</a>
+                <a href="#robot" class="neon-cta" aria-label="See our robot">
+                  <span class="neon-outline" aria-hidden="true"></span>
+                  <span class="neon-fill" aria-hidden="true"></span>
+                  <span class="label"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>See Our Robot</span></span>
+                </a>
               </div>
             </div>
             <div class="mt-8 md:mt-0 md:w-2/5">
@@ -98,7 +144,7 @@
       <section id="about" aria-labelledby="about-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div class="bg-bg-2 rounded-2xl p-6 neon-glow shadow-md">
           <h2 id="about-heading" class="text-2xl font-semibold">About Us</h2>
-          <p class="mt-4 text-gray-300">[About Us Placeholder] Logic Legion (FTC Team 28874) was founded in [Year]. We combine computer science, mechanical design, and strategy to build competitive robots. Replace this paragraph with your team's history, values, notable achievements, and outreach activities.</p>
+          <p class="mt-4 text-gray-300">Logic Legion was founded in 2025. We combine computer science, mechanical design, and strategy to build competitive robots. We value teamwork, and sportsmanship and strive to become the best we can be. </p>
           <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 rounded-lg bg-gradient-to-b from-[#071022]/40 to-transparent border border-white/5">
               <h3 class="font-medium">Our Philosophy</h3>
@@ -140,13 +186,10 @@
             <p class="mt-6 text-gray-300">The Apex Maker Club provides the necessary resources, mentorship, and collaborative spirit that allows our FTC team to thrive.</p>
 
             <div class="mt-4">
-                <a href="https://apexmakerclub.org/" target="_blank" class="relative inline-block px-4 py-2 rounded-md bg-[#071022] text-neon font-medium shadow-sm overflow-hidden group focus:outline-none" aria-label="Visit the Apex Maker Club">
-                  <!-- outline layer -->
-                  <span class="absolute inset-0 rounded-md border-2 border-neon pointer-events-none"></span>
-                  <!-- fill layer (expands on hover) -->
-                  <span class="absolute inset-0 rounded-md bg-neon scale-x-0 origin-left transform transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true"></span>
-                  <!-- label -->
-                  <span class="relative z-10 transition-colors duration-200 group-hover:text-black">Visit the Apex Maker Club</span>
+                <a href="https://apexmakerclub.org/" target="_blank" class="neon-cta" aria-label="Visit the Apex Maker Club">
+                  <span class="neon-outline" aria-hidden="true"></span>
+                  <span class="neon-fill" aria-hidden="true"></span>
+                  <span class="label"><svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Visit the Apex Maker Club</span></span>
                 </a>
               <span class="ml-3 text-sm text-gray-400"></span>
             </div>
@@ -253,7 +296,7 @@
               </div>
               <div class="mt-3">
                 <div class="font-medium">Bhargava Yeluri</div>
-                <div class="text-xs text-gray-400">Sponsorship Manager | Builder</div>
+                <div class="text-xs text-gray-400">Sponsorship Manager | Builder | Outreach</div>
               </div>
             </div>
             <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
@@ -280,7 +323,7 @@
               </div>
               <div class="mt-3">
                 <div class="font-medium">Kavish Mahaseth</div>
-                <div class="text-xs text-gray-400">Builder</div>
+                <div class="text-xs text-gray-400">Progamming | Portfolio | Outreach</div>
               </div>
             </div>
             <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
@@ -300,10 +343,22 @@
       <!-- Sponsors -->
       <section id="sponsors" aria-labelledby="sponsors-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-12">
         <div class="bg-gradient-to-b from-bg-2 to-bg rounded-2xl p-6 neon-glow shadow-md">
-          <h2 id="sponsors-heading" class="text-2xl font-semibold">Sponsors</h2>
-          <p class="mt-2 text-gray-300">We gratefully acknowledge our sponsors. Replace the placeholders with sponsor logos (use high-resolution PNG/SVG files).</p>
+          <div class="flex items-start justify-between">
+            <div>
+              <h2 id="sponsors-heading" class="text-2xl font-semibold">Sponsors</h2>
+              <p class="mt-2 text-gray-300">We gratefully acknowledge our sponsors. Replace the placeholders with sponsor logos (use high-resolution PNG/SVG files).</p>
+            </div>
+            <!-- Admin-only control: show/hide sponsors requires admin passphrase -->
+            <div class="ml-4">
+              <button id="sponsors-admin-btn" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#071022]/40 border border-white/6 text-sm text-gray-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent" title="Admin: show sponsors">
+                <svg class="w-4 h-4 text-neon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Admin</span>
+              </button>
+            </div>
+          </div>
 
-          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
+          <!-- Panel that contains sponsor logos; can be hidden by the toggle -->
+          <div id="sponsors-panel" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
             <!-- Placeholder sponsor logos -->
             <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor A</text></svg>
@@ -318,6 +373,9 @@
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor D</text></svg>
             </div>
           </div>
+
+          <!-- Placeholder shown when sponsors are hidden -->
+          <div id="sponsors-hidden-placeholder" class="mt-6 text-sm text-gray-400 hidden">No sponsors are listed right now.</div>
         </div>
       </section>
     </main>
@@ -329,7 +387,15 @@
           <div>
             <h4 class="font-semibold">Logic Legion</h4>
             <p class="text-sm text-gray-400 mt-2">FTC Team 28874 — Apex, North Carolina</p>
-            <p class="text-sm text-gray-400 mt-1">Email: <a href="mailto:ftcteam28874@apexmakerclub.org" class="text-neon">ftcteam28874@apexmakerclub.org</a></p>
+            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">Email:
+              <a href="mailto:ftcteam28874@apexmakerclub.org" class="inline-flex items-center gap-2 text-neon group transition duration-150 hover:scale-105 focus:scale-105 focus:outline-none align-middle" title="Send email to ftcteam28874@apexmakerclub.org" aria-label="Send email to ftcteam28874@apexmakerclub.org">
+                <svg class="w-4 h-4 text-neon transition-transform duration-150 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11A2.5 2.5 0 0 1 19.5 20h-15A2.5 2.5 0 0 1 2 17.5v-11z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M22 6.5l-10 7L2 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="underline decoration-transparent group-hover:decoration-neon decoration-2 transition-all">ftcteam28874@apexmakerclub.org</span>
+              </a>
+            </p>
           </div>
           <div class="mt-4 md:mt-0">
             <h5 class="font-medium">Follow Us</h5>
@@ -357,17 +423,53 @@
       const mobileMenu = document.getElementById('mobile-menu');
       const menuOpen = document.getElementById('menu-open');
       const menuClose = document.getElementById('menu-close');
-      navToggle?.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        menuOpen.classList.toggle('hidden');
-        menuClose.classList.toggle('hidden');
+      function openMobileMenu() {
+        navToggle.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.classList.remove('mobile-menu-hidden');
+        mobileMenu.classList.add('mobile-menu-visible');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        // stagger mobile link reveal
+        const links = Array.from(mobileMenu.querySelectorAll('.mobile-link'));
+        links.forEach((ln, i) => setTimeout(() => ln.classList.add('is-visible'), 60 * i));
+      }
+      function closeMobileMenu() {
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('mobile-menu-visible');
+        mobileMenu.classList.add('mobile-menu-hidden');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        // remove visible state quickly
+        const links = Array.from(mobileMenu.querySelectorAll('.mobile-link'));
+        links.forEach(ln => ln.classList.remove('is-visible'));
+      }
+      navToggle?.addEventListener('click', (e) => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        if (expanded) closeMobileMenu(); else openMobileMenu();
+      });
+
+      // Close mobile menu on outside click or on Escape key
+      document.addEventListener('click', (e) => {
+        if (!mobileMenu || !navToggle) return;
+        if (mobileMenu.classList.contains('mobile-menu-visible')) {
+          if (!mobileMenu.contains(e.target) && !navToggle.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('mobile-menu-visible')) {
+          closeMobileMenu();
+        }
       });
 
       // Insert current year
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Accessibility: close mobile menu when a link is clicked
-      mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+      // Accessibility: close mobile menu when a link is clicked (use animated close)
+      mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        try { closeMobileMenu(); } catch (err) { mobileMenu.classList.add('mobile-menu-hidden'); }
+      }));
       
       // Sticky header reveal on scroll (throttled via rAF)
       (function() {
@@ -428,6 +530,243 @@
             }
           });
         });
+      })();
+
+      // Offset in-page anchor navigation to account for fixed header height
+      (function() {
+        const header = document.querySelector('header');
+        function getHeaderHeight() {
+          return header ? header.getBoundingClientRect().height : 0;
+        }
+
+        function scrollToHash(hash, smooth = true) {
+          if (!hash) return;
+          const target = document.querySelector(hash);
+          if (!target) return;
+          const headerHeight = getHeaderHeight();
+          const targetTop = window.scrollY + target.getBoundingClientRect().top - headerHeight - 8; // small gap
+          window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
+        }
+
+        // Intercept nav clicks
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href === '#') return; // allow normal
+            if (href.startsWith('#')) {
+              e.preventDefault();
+              scrollToHash(href, true);
+              // close mobile menu if open using the shared close function so state stays consistent
+              try {
+                if (typeof closeMobileMenu === 'function') closeMobileMenu();
+              } catch (err) {
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu) mobileMenu.classList.add('mobile-menu-hidden');
+              }
+              // update URL hash without jumping
+              history.pushState(null, '', href);
+            }
+          });
+        });
+
+        // If page loads with a hash, scroll to it with offset
+        if (window.location.hash) {
+          // wait for layout
+          setTimeout(() => scrollToHash(window.location.hash, false), 50);
+        }
+      })();
+
+      // Reveal neon CTAs on load with a short stagger
+      (function() {
+        function revealCTAs() {
+          const ctas = Array.from(document.querySelectorAll('.neon-cta'));
+          ctas.forEach((el, i) => setTimeout(() => el.classList.add('is-visible'), 120 * i));
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', revealCTAs);
+        } else {
+          revealCTAs();
+        }
+      })();
+
+      // Blur CTAs after pointer interactions to avoid stuck highlight
+      (function() {
+        // Use pointerup to detect mouse/touch interactions; preserve keyboard focus
+        document.addEventListener('pointerup', (e) => {
+          const el = e.target.closest && e.target.closest('.neon-cta');
+          if (!el) return;
+          // If it's a mouse or touch interaction, blur the element after click
+          if (e.pointerType === 'mouse' || e.pointerType === 'touch' || e.pointerType === 'pen') {
+            // small timeout to allow click navigation/handlers to run
+            setTimeout(() => { try { el.blur(); } catch (err) {} }, 50);
+          }
+        }, { passive: true });
+      })();
+
+      // Sponsors toggle: allow temporarily hiding the sponsors panel and persist preference
+      (function() {
+        const toggle = document.getElementById('sponsors-toggle');
+        const panel = document.getElementById('sponsors-panel');
+        const placeholder = document.getElementById('sponsors-hidden-placeholder');
+        const label = document.getElementById('sponsors-toggle-label');
+        const storageKey = 'logiclegion.sponsors.hidden';
+
+        function applyHidden(hidden, save = true) {
+          if (!panel || !toggle || !label || !placeholder) return;
+          if (hidden) {
+            panel.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            toggle.setAttribute('aria-pressed', 'true');
+            label.textContent = 'Show';
+          } else {
+            panel.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+            toggle.setAttribute('aria-pressed', 'false');
+            label.textContent = 'Hide';
+          }
+          if (save) {
+            try { localStorage.setItem(storageKey, hidden ? '1' : '0'); } catch (err) {}
+          }
+        }
+
+        // Wire up click
+        toggle?.addEventListener('click', () => {
+          const pressed = toggle.getAttribute('aria-pressed') === 'true';
+          applyHidden(!pressed);
+        });
+
+        // Restore saved preference on load
+        try {
+          const saved = localStorage.getItem(storageKey);
+          if (saved === '1') applyHidden(true, false);
+        } catch (err) {}
+      })();
+
+      // Admin-only sponsors reveal
+      (function() {
+        const adminBtn = document.getElementById('sponsors-admin-btn');
+        const panel = document.getElementById('sponsors-panel');
+        const placeholder = document.getElementById('sponsors-hidden-placeholder');
+        const storageKey = 'logiclegion.sponsors.hidden';
+        const adminKey = 'logiclegion.admin';
+
+        // If programmer control is enabled, apply that and hide the admin UI
+        try {
+          if (PROGRAMMER_CONTROLLED) {
+            // hide admin button to avoid confusion
+            if (adminBtn && adminBtn.parentElement) adminBtn.parentElement.style.display = 'none';
+            if (PROGRAMMER_SHOW_SPONSORS) {
+              if (panel) panel.classList.remove('hidden');
+              if (placeholder) placeholder.classList.add('hidden');
+            } else {
+              if (panel) panel.classList.add('hidden');
+              if (placeholder) placeholder.classList.remove('hidden');
+            }
+            // exit early — no admin flow needed
+            return;
+          }
+        } catch (err) {}
+
+        // Create a minimal modal for passphrase entry (insert into body)
+        const modalHtml = `
+          <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 hidden" aria-hidden="true">
+            <div class="bg-bg-2 rounded-lg p-4 w-full max-w-sm shadow-lg">
+              <h3 class="font-semibold text-lg">Admin access</h3>
+              <p class="text-sm text-gray-400 mt-2">Enter the admin passphrase to reveal sponsors. This sets admin mode for this session only.</p>
+              <div class="mt-3">
+                <input id="admin-pass" type="password" class="w-full bg-[#061026] border border-white/5 rounded px-3 py-2 text-sm" placeholder="Enter passphrase" aria-label="Admin passphrase" />
+              </div>
+              <div class="mt-3 flex items-center justify-end gap-2">
+                <button id="admin-cancel" class="px-3 py-1.5 rounded bg-transparent border border-white/6 text-sm">Cancel</button>
+                <button id="admin-submit" class="px-3 py-1.5 rounded bg-neon text-black text-sm">Submit</button>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        const modal = document.getElementById('admin-modal');
+        const passInput = document.getElementById('admin-pass');
+        const submitBtn = document.getElementById('admin-submit');
+        const cancelBtn = document.getElementById('admin-cancel');
+
+        function showModal() {
+          if (!modal) return;
+          modal.classList.remove('hidden');
+          modal.setAttribute('aria-hidden', 'false');
+          setTimeout(() => passInput?.focus(), 50);
+        }
+        function hideModal() {
+          if (!modal) return;
+          modal.classList.add('hidden');
+          modal.setAttribute('aria-hidden', 'true');
+          passInput.value = '';
+        }
+
+        // Basic passphrase check: store a salted hash-like value (not secure storage!)
+        // If you want to change the passphrase, update this value. Default passphrase: 'letmein'
+        const expected = 'a59f6b8f'; // small obfuscated token representing 'letmein' - change as needed
+
+        function checkPassphrase(input) {
+          if (!input) return false;
+          // simple obfuscation: compute a small checksum
+          let s = 0;
+          for (let i = 0; i < input.length; i++) s = (s * 31 + input.charCodeAt(i)) & 0xffffffff;
+          const hex = (s >>> 0).toString(16).slice(-8);
+          return hex === expected;
+        }
+
+        function setAdmin(enabled) {
+          try { sessionStorage.setItem(adminKey, enabled ? '1' : '0'); } catch (err) {}
+          if (enabled) {
+            // reveal sponsors panel if it was hidden
+            if (panel) panel.classList.remove('hidden');
+            if (placeholder) placeholder.classList.add('hidden');
+          }
+        }
+
+        adminBtn?.addEventListener('click', () => {
+          // if already admin, toggle panel visibility directly
+          try {
+            if (sessionStorage.getItem(adminKey) === '1') {
+              const isHidden = panel?.classList.contains('hidden');
+              if (isHidden) { panel.classList.remove('hidden'); placeholder.classList.add('hidden'); }
+              else { panel.classList.add('hidden'); placeholder.classList.remove('hidden'); }
+              return;
+            }
+          } catch (err) {}
+          showModal();
+        });
+
+        // Modal actions
+        submitBtn?.addEventListener('click', () => {
+          const val = passInput.value || '';
+          if (checkPassphrase(val)) {
+            setAdmin(true);
+            hideModal();
+          } else {
+            passInput.value = '';
+            passInput.placeholder = 'Incorrect — try again';
+            setTimeout(() => passInput.placeholder = 'Enter passphrase', 1200);
+            passInput.focus();
+          }
+        });
+        cancelBtn?.addEventListener('click', hideModal);
+
+        passInput?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') submitBtn.click();
+          if (e.key === 'Escape') hideModal();
+        });
+
+        // Initialize: if session indicates admin, reveal sponsors panel
+        try {
+          if (sessionStorage.getItem(adminKey) === '1') {
+            setAdmin(true);
+          } else {
+            // keep sponsors hidden by default when not admin
+            if (panel) panel.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+          }
+        } catch (err) {}
       })();
     </script>
   </body>
