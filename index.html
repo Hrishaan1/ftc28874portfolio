@@ -100,14 +100,14 @@
           </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden mobile-menu-panel mobile-menu-hidden py-3" aria-hidden="true">
-          <a href="#home" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Home</a>
-          <a href="#about" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">About</a>
-          <a href="#foundation" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Foundation</a>
-          <a href="#robot" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Robot</a>
-          <a href="#team" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Team</a>
-          <a href="#sponsors" class="mobile-link block py-2 px-2 rounded hover:bg-white/3">Sponsors</a>
-          <a href="#outreach" class="mobile=link block py-2 px-2 rounded hover:bg-white/3">Outreach</a>
+        <div id="mobile-menu" class="md:hidden mobile-menu-panel mobile-menu-hidden py-3" aria-hidden="true" role="menu" aria-label="Main menu">
+          <a href="#home" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Home</a>
+          <a href="#about" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">About</a>
+          <a href="#foundation" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Foundation</a>
+          <a href="#robot" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Robot</a>
+          <a href="#team" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Team</a>
+          <a href="#sponsors" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Sponsors</a>
+          <a href="#outreach" class="mobile-link block py-2 px-2 rounded hover:bg-white/3" role="menuitem">Outreach</a>
         </div>
       </nav>
     </header>
@@ -304,7 +304,7 @@
             </div>
             <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
-                <span class="text-gray-500">Photo</span>
+                <img src="johan.jpeg" alt="Johan Jinto" class="w-full h-fulll object-cover"/>
               </div>
               <div class="mt-3">
                 <div class="font-medium">Johan Jinto</div>
@@ -674,6 +674,34 @@
             // small timeout to allow click navigation/handlers to run
             setTimeout(() => { try { el.blur(); } catch (err) {} }, 50);
           }
+        }, { passive: true });
+      })();
+
+      // Blur mobile menu links after pointer activation to avoid sticky focus (preserve keyboard focus)
+      (function() {
+        if (!mobileMenu) return;
+
+        // PointerEvent path: only blur when the interaction was via pointer (mouse/touch/pen).
+        mobileMenu.addEventListener('pointerup', (e) => {
+          const a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a || !mobileMenu.contains(a)) return;
+          if (e.pointerType === 'mouse' || e.pointerType === 'touch' || e.pointerType === 'pen') {
+            // delay slightly so navigation/close logic runs first
+            setTimeout(() => { try { a.blur(); } catch (err) {} }, 50);
+          }
+        }, { passive: true });
+
+        // Click fallback for browsers without PointerEvent support.
+        // Only blur for actual pointer clicks (e.detail > 0). Keyboard activations have detail === 0,
+        // so keyboard focus is preserved for accessibility.
+        mobileMenu.addEventListener('click', (e) => {
+          const a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a || !mobileMenu.contains(a)) return;
+          try {
+            if (e.detail && e.detail > 0) {
+              setTimeout(() => { try { a.blur(); } catch (err) {} }, 50);
+            }
+          } catch (err) {}
         }, { passive: true });
       })();
 
