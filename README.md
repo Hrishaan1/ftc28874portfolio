@@ -63,7 +63,7 @@ tailwind.config = {
         bg: '#060818',       // Main dark background
         'bg-2': '#071033',   // Secondary dark background (used in cards/sections)
         neon: '#00fff6',     // Primary accent color (cyan)
-        accent: '#7c5cff',   // Secondary accent color (purple/indigo)
+        accent: '#00fff6',   // Secondary accent color (cyan)
         'muted-blue': '#12223b'
       }
     }
