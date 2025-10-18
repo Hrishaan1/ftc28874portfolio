@@ -45,7 +45,6 @@ Key files and content to update:
 
 | File/Section | Purpose | Action Required |
 | :--- | :--- | :--- |
-| **`robot.png`** | Robot section image. | **Replace** with a photo/render of the current season's robot. |
 | **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
 | **`#about` section** | Team philosophy and competition goals. | **Edit** the placeholder text for philosophy and goals. |
 | **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
