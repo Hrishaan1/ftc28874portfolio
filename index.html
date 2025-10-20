@@ -51,6 +51,20 @@
       .neon-cta .label { position: relative; z-index: 10; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; transition: color .2s; }
       .neon-cta:hover .label, .neon-cta:focus .label { color: #000; }
       .neon-cta .icon { width: 1rem; height: 1rem; flex: 0 0 1rem; display: inline-block; }
+      /* Update header transitions to prevent border flash */
+      header {
+        transition: background-color .2s ease;
+        border-bottom: 1px solid transparent; /* Start with transparent border */
+      }
+      .header-scrolled {
+        background-color: rgba(7,16,34,0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255,255,255,0.85);
+      }
+      /* Remove any existing border transitions */
+      .border, .border-b, .border-t {
+        transitions: none; 
+      }
   /* Mobile menu & hamburger animations */
   .mobile-menu-panel { transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .22s ease; transform-origin: top; position: absolute; left: 0; right: 0; top: 100%; background: rgba(7,16,51,0.96); z-index: 30; padding: 0.75rem 1rem; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
   .mobile-menu-hidden { opacity: 0; transform: translateY(-6px) scaleY(.98); pointer-events: none; max-height: 0; overflow: hidden; }
@@ -137,7 +151,6 @@
                 <!-- Team photo image (replace file if needed) -->
                 <!-- <img src="#" alt="Team Photo" class="w-full h-full object-cover rounded-xl" /> -->
                  <span class="text-gray-500">[Replace with Team Photo]</span>
-              </div>
             </div>
           </div>
         </div>
