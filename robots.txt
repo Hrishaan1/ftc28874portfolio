@@ -1,0 +1,7 @@
+# robots.txt for https://ftc28874.apexmakerclub.org/
+
+User-agent: *
+Disallow:
+
+# Optional: Add sitemap if you generate one in the future
+# Sitemap: https://ftc28874.apexmakerclub.org/sitemap.xml
