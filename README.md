@@ -18,10 +18,10 @@ Since the site is a single HTML file with no build step, you can view it locally
 
 1.  **Cloning the repository:**
     ```bash
-    git clone [Your Repository URL Here]
+    git clone github.com/Hrishaan1/ftc28874portfolio
     cd logic-legion-site
     ```
-2.  **Opening the file:** Drag and drop `index.html` directly into your web browser, or use a simple local server extension in your editor (like VS Code's Live Server).
+2.  **Opening the file:** Double click `index.html` to open it directly in your web browser, or use a simple local server extension in your editor (like VS Code's Live Server).
 
 ### 3. Deployment
 
@@ -46,9 +46,8 @@ Key files and content to update:
 | File/Section | Purpose | Action Required |
 | :--- | :--- | :--- |
 | **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
-| **`#about` section** | Team philosophy and competition goals. | **Edit** the placeholder text for philosophy and goals. |
 | **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
-| **`#sponsors` section** | Sponsor logos and details. | **Replace** the placeholder SVG/text with high-resolution sponsor logos. |
+| **`#sponsors` section** | Sponsor logos and details. | **Update** the placeholder SVG/text with high-resolution sponsor logos. |
 
 ### B. Tailwind Colors
 
