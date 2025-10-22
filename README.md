@@ -39,17 +39,7 @@ Simply upload the `index.html` file and any linked assets (like `logiclegionlogo
 
 ## ⚙️ Customization and Configuration
 
-### A. Global Content & Assets
-
-Key files and content to update:
-
-| File/Section | Purpose | Action Required |
-| :--- | :--- | :--- |
-| **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
-| **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
-| **`#sponsors` section** | Sponsor logos and details. | **Update** the placeholder SVG/text with high-resolution sponsor logos. |
-
-### B. Tailwind Colors
+### Tailwind Colors
 
 The site uses a custom dark/neon color scheme defined within the `<script>` tag in the `<head>`:
 
@@ -67,3 +57,16 @@ tailwind.config = {
     }
   }
 }
+```
+
+---
+
+## ✅ To-Do List
+
+Key files and content to update:
+
+| File/Section | Purpose | Action Required |
+| :--- | :--- | :--- |
+| **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
+| **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
+| **`#robot` section** | Robot image | **Update** the CAD rendering after every update in the `<img />` tag in the `#robot` section. |
