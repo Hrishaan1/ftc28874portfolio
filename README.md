@@ -1,6 +1,6 @@
 # Logic Legion | FTC Team 28874 Official Site
 
-🤖 **Logic Legion** is an FTC (FIRST Tech Challenge) robotics team based in Apex, North Carolina, and powered by the **Apex Maker Club**. Our mission is to inspire creativity, teamwork, and a passion for robotics by designing, building, and programming unique competition robots.
+🤖 **Logic Legion** is an FTC (FIRST Tech Challenge) robotics team based in Apex, North Carolina, and powered by the **Apex Maker Club**. Our mission is to inspire creativity, teamwork, and a passion for robotics by designing, building, and programming unique robots that are fit for competitions.
 
 This repository hosts the official team website, which serves as a central hub for our robot showcase, team information, foundation, and sponsor acknowledgments.
 
