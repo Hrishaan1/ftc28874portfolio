@@ -16,9 +16,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       // Programmer control flags:
-      // Set PROGRAMMER_CONTROLLED = true to manage sponsors visibility from code.
-      // Then set PROGRAMMER_SHOW_SPONSORS to true/false to show or hide sponsors.
-      // Edit these two values below as a programmer to quickly include or hide the sponsors section.
       const PROGRAMMER_CONTROLLED = true; // set to true to enable code-based control
       const PROGRAMMER_SHOW_SPONSORS = false; // set to true to show sponsors, false to hide
       // Tailwind custom configuration (colors + container)
@@ -37,12 +34,25 @@
       }
     </script>
     <style>
-      /* Small helpers for neon glow and smooth scroll */
+/* Small helpers for neon glow and smooth scroll */
       :root { color-scheme: dark; --neon: #00fff6; }
-      html { scroll-behavior: smooth; } 
+      html { scroll-behavior: smooth; }
       .neon-glow { box-shadow: 0 0 20px rgba(0,255,246,0.08), 0 0 8px rgba(124,92,255,0.06); }
-
-      /* Shared neon CTA styles (keeps markup DRY without Tailwind build-step)
+      
+      /* Navigation link hover effects */
+      nav a[href^="#"] {
+        transition: color 0.2s, transform 0.2s;
+      }
+      nav a[href^="#"]:hover {
+        transform: scale(1.05);
+      }
+      nav a[href^="#"]:active {
+        transform: scale(1);
+      }
+      /* Remove hover effects while scrolling */
+      html.is-scrolling nav a[href^="#"]:hover {
+        transform: none;
+      }      /* Shared neon CTA styles (keeps markup DRY without Tailwind build-step)
          - .neon-cta: base component
          - .neon-outline: border layer
          - .neon-fill: animated fill that expands on hover/focus
@@ -231,7 +241,7 @@
               <div class="flex flex-col md:flex-row gap-4">
                 <div class="md:w-1/2 bg-[#081133] rounded-lg p-3 flex items-center justify-center">
                   <div class="w-full h-56 rounded-md bg-gradient-to-tr from-[#071033] to-[#0b1730] flex items-center justify-center border border-white/5 overflow-hidden">
-                    <img src="UpdatedRobot.png" alt="Our Robot — showcase" class="w-full h-full object-cover rounded-md" />
+                    <img src="NewAndImprovedRobot.png" alt="Our Robot — showcase" class="w-full h-full object-cover rounded-md" />
                   </div>
                 </div>
                 <div class="md:w-1/2">
@@ -383,16 +393,16 @@
           <!-- Panel that contains sponsor logos; can be hidden by the toggle -->
           <div id="sponsors-panel" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
             <!-- Placeholder sponsor logos -->
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor A</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor B</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor C</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor D</text></svg>
             </div>
           </div>
@@ -560,6 +570,17 @@
       // Insert current year
       document.getElementById('year').textContent = new Date().getFullYear();
 
+      // Handle navigation link clicks to prevent stuck hover states
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', () => {
+          // Force remove any hover/active states
+          link.style.transform = 'none';
+          setTimeout(() => {
+            link.style.removeProperty('transform');
+          }, 100);
+        });
+      });
+
       // Accessibility: close mobile menu when a link is clicked (use animated close)
       mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
         try { closeMobileMenu(); } catch (err) { mobileMenu.classList.add('mobile-menu-hidden'); }
@@ -717,6 +738,36 @@
         mobileMenu.addEventListener('click', (e) => {
           const a = e.target && e.target.closest ? e.target.closest('a') : null;
           if (!a || !mobileMenu.contains(a)) return;
+          try {
+            if (e.detail && e.detail > 0) {
+              setTimeout(() => { try { a.blur(); } catch (err) {} }, 50);
+            }
+          } catch (err) {}
+        }, { passive: true });
+      })();
+
+      // Blur desktop nav links after pointer activation to avoid sticky focus (preserve keyboard focus)
+      (function() {
+        // For pointer-capable devices: blur only on pointer interactions so keyboard users keep focus
+        document.addEventListener('pointerup', (e) => {
+          const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+          if (!a) return;
+          // Ignore links inside the mobile menu (they're handled above)
+          const mobileMenuEl = document.getElementById('mobile-menu');
+          if (mobileMenuEl && mobileMenuEl.contains(a)) return;
+          if (e.pointerType === 'mouse' || e.pointerType === 'touch' || e.pointerType === 'pen') {
+            // Delay slightly so any navigation handlers run first
+            setTimeout(() => { try { a.blur(); } catch (err) {} }, 50);
+          }
+        }, { passive: true });
+
+        // Click fallback for older browsers without PointerEvent support. Only blur for real pointer clicks (detail > 0),
+        // preserving keyboard activations (detail === 0).
+        document.addEventListener('click', (e) => {
+          const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+          if (!a) return;
+          const mobileMenuEl = document.getElementById('mobile-menu');
+          if (mobileMenuEl && mobileMenuEl.contains(a)) return;
           try {
             if (e.detail && e.detail > 0) {
               setTimeout(() => { try { a.blur(); } catch (err) {} }, 50);

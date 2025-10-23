@@ -1,6 +1,6 @@
 # Logic Legion | FTC Team 28874 Official Site
 
-🤖 **Logic Legion** is an FTC (FIRST Tech Challenge) robotics team based in Apex, North Carolina, and powered by the **Apex Maker Club**. Our mission is to inspire creativity, teamwork, and a passion for robotics by designing, building, and programming unique competition robots.
+🤖 **Logic Legion** is an FTC (FIRST Tech Challenge) robotics team based in Apex, North Carolina, and powered by the **Apex Maker Club**. Our mission is to inspire creativity, teamwork, and a passion for robotics by designing, building, and programming unique robots that are fit for competitions.
 
 This repository hosts the official team website, which serves as a central hub for our robot showcase, team information, foundation, and sponsor acknowledgments.
 
@@ -39,17 +39,7 @@ Simply upload the `index.html` file and any linked assets (like `logiclegionlogo
 
 ## ⚙️ Customization and Configuration
 
-### A. Global Content & Assets
-
-Key files and content to update:
-
-| File/Section | Purpose | Action Required |
-| :--- | :--- | :--- |
-| **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
-| **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
-| **`#sponsors` section** | Sponsor logos and details. | **Update** the placeholder SVG/text with high-resolution sponsor logos. |
-
-### B. Tailwind Colors
+### Tailwind Colors
 
 The site uses a custom dark/neon color scheme defined within the `<script>` tag in the `<head>`:
 
@@ -67,3 +57,16 @@ tailwind.config = {
     }
   }
 }
+```
+
+---
+
+## ✅ To-Do List
+
+Key files and content to update:
+
+| File/Section | Purpose | Action Required |
+| :--- | :--- | :--- |
+| **`[Team Photo]`** | Hero section placeholder. | **Replace** the `<span>` with an `<img />` tag for the team photo. |
+| **`#team` section** | Team member details. | **Update** `<span>Photo</span>` with `<img />` tags for member photos. |
+| **`#robot` section** | Robot image | **Update** the CAD rendering after every update in the `<img />` tag in the `#robot` section. |
