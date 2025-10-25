@@ -6,7 +6,7 @@ This repository hosts the official team website, which serves as a central hub f
 
 ## 🚀 Quick Start
 
-This website is a **single-page application** built primarily with vanilla HTML and the **Tailwind CSS CDN**, making it extremely easy to deploy.
+This website is a **single-page application** built primarily with **vanilla HTML** and the **Tailwind CSS CDN**, making it extremely easy to deploy.
 
 ### 1. Requirements
 
@@ -23,19 +23,11 @@ Since the site is a single HTML file with no build step, you can view it locally
     ```
 2.  **Opening the file:** Double click `index.html` to open it directly in your web browser, or use a simple local server extension in your editor (like VS Code's Live Server).
 
-### 3. Deployment
-
-Simply upload the `index.html` file and any linked assets (like `logiclegionlogo.jpg`, `robot.png`, team photos) to any web hosting service (e.g., GitHub Pages, Netlify, Vercel).
-
----
-
 ## 🛠️ Technology Stack
 
 * **HTML5:** The core structure of the single-page application.
 * **Tailwind CSS (CDN):** Used for styling, providing utility-first classes for a modern, dark, neon-themed aesthetic without a dedicated build step.
 * **Vanilla JavaScript:** Used for interactive elements like the mobile navigation toggle, smooth scrolling, element visibility transitions, and the administrative control for the Sponsors section.
-
----
 
 ## ⚙️ Customization and Configuration
 
