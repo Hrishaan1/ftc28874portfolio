@@ -29,6 +29,31 @@ Since the site is a single HTML file with no build step, you can view it locally
 * **Tailwind CSS (CDN):** Used for styling, providing utility-first classes for a modern, dark, neon-themed aesthetic without a dedicated build step.
 * **Vanilla JavaScript:** Used for interactive elements like the mobile navigation toggle, smooth scrolling, element visibility transitions, and the administrative control for the Sponsors section.
 
+## 🧩 Development notes
+
+The site's JavaScript is now kept in a single external file for easier maintenance:
+
+- Location: `js/main.js`
+- How it's loaded: the script is included near the end of `index.html` right before `</body>` as `<script src="js/main.js"></script>` so it runs after the DOM is available.
+
+Local testing / serving:
+
+1. From the project root you can use Python's simple HTTP server:
+
+```bash
+# Python 3
+python3 -m http.server 8000
+
+# then open http://localhost:8000 in your browser
+```
+
+2. Or use an editor extension such as VS Code Live Server.
+
+Deployment notes:
+
+- If you deploy this repository to a static host (GitHub Pages, Netlify, Vercel, etc.) the `js/` folder will be deployed with the site by default. No build step is required.
+- If you plan to add a strict Content Security Policy (CSP), allow the external script (`js/main.js`) or inline the parts that need to run under your policy.
+
 ## ⚙️ Customization and Configuration
 
 ### Tailwind Colors
