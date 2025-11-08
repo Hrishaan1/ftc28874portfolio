@@ -67,6 +67,13 @@
       .neon-cta .label { position: relative; z-index: 10; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; transition: color .2s; }
       .neon-cta:hover .label, .neon-cta:focus .label { color: #000; }
       .neon-cta .icon { width: 1rem; height: 1rem; flex: 0 0 1rem; display: inline-block; }
+      .card-hover {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 30px rgba(0,255,246,0.15), 0 0 12px rgba(124,92,255,0.1), 0 12px 24px rgba(0,0,0,0.3);
+      }
       /* Update header transitions to prevent border flash */
       header {
         transition: background-color .2s ease;
@@ -179,15 +186,15 @@
           <h2 id="about-heading" class="text-2xl font-semibold">About Us</h2>
           <p class="mt-4 text-gray-300">Logic Legion was founded in 2025. We combine computer science, mechanical design, and strategy to build competitive robots. We value teamwork and sportsmanship, and strive to become the best we can be.</p>
           <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
               <h3 class="font-semibold text-neon">Our Philosophy</h3>
               <p class="text-sm text-gray-300 mt-2">We strive to become better teammates through collaboration, teamwork and coordination.</p>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
               <h3 class="font-semibold text-neon">Teamwork</h3>
               <p class="text-sm text-gray-300 mt-2">Each of our members has strong bonds and strives to make them stronger.</p>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
               <h3 class="font-semibold text-neon">Competition Goals</h3>
               <p class="text-sm text-gray-300 mt-2">We strive to earn at least 150 points consistently and show good sportsmanship.</p>
             </div>
@@ -202,15 +209,15 @@
             <p class="mt-3 text-gray-300">Logic Legion (FTC 28874) is proud to be powered by the Apex Maker Club, a vibrant, youth-led community dedicated to making STEM experiential learning accessible to all.</p>
 
             <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                 <h3 class="font-semibold text-neon">Learn</h3>
                 <p class="text-sm text-gray-300 mt-2">Focuses on creative computational thinking and building a 'maker mindset.'</p>
               </div>
-              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                 <h3 class="font-semibold text-neon">Make</h3>
                 <p class="text-sm text-gray-300 mt-2">Encourages members to dream, design, and take projects from concept to reality.</p>
               </div>
-              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow">
+              <div class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                 <h3 class="font-semibold text-neon">Share</h3>
                 <p class="text-sm text-gray-300 mt-2">Builds community by sharing projects and receiving constructive feedback.</p>
               </div>
@@ -248,19 +255,19 @@
                   <h3 class="text-xl font-semibold text-neon">Decode Robot</h3>
                   <p class="mt-2 text-gray-300">Our robot will have an intake that uses boot wheels coupled with a double rhino wheel outtake.</p>
                   <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
-                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow">
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                       <strong>Drive</strong>
                       <div class="text-gray-300 text-xs mt-1">Mecanum Drivetrain</div>
                     </div>
-                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow">
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                       <strong>Shooter</strong>
                       <div class="text-gray-300 text-xs mt-1">goBILDA Rhino Wheels • goBILDA 435 RPM Motors</div>
                     </div>
-                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow">
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                       <strong>Intake</strong>
                       <div class="text-gray-300 text-xs mt-1">goBILDA Boot Wheels • goBILDA 1150 RPM Motor</div>
                     </div>
-                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow">
+                    <div class="p-3 rounded-md bg-[#071022]/40 border border-white/5 neon-glow card-hover">
                       <strong>Control</strong>
                       <div class="text-gray-300 text-xs mt-1">REV Control Hub • REV Expansion Hub</div>
                     </div>
@@ -270,7 +277,7 @@
             </div>
 
             <!-- Specs card -->
-            <aside class="p-4 rounded-xl bg-[#06102a]/60 border border-white/5 neon-glow">
+            <aside class="p-4 rounded-xl bg-[#06102a]/60 border border-white/5 neon-glow card-hover">
               <h4 class="font-semibold text-neon">Specifications</h4>
               <ul class="mt-3 text-sm text-gray-300 space-y-2">
                 <li><strong>Weight:</strong> 18 kg</li>
@@ -305,7 +312,7 @@
                 </div>
               </div>
             </template>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <span class="text-gray-500">Photo</span>
               </div>
@@ -314,7 +321,7 @@
                 <div class="text-xs text-gray-400">Programmer • Designer • Driver • Website Manager</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <img src="Ishaan.jpeg" alt="Ishaan Ramesh" class="w-full h-full object-cover">
               </div>
@@ -323,7 +330,7 @@
                 <div class="text-xs text-gray-400">Builder • Driver • Social Media Manager</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <span class="text-gray-500">Photo</span>
               </div>
@@ -332,7 +339,7 @@
                 <div class="text-xs text-gray-400">Sponsorship Manager • Builder • Outreach</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <img src="johan.jpeg" alt="Johan Jinto" class="w-full h-full object-cover"/>
               </div>
@@ -341,7 +348,7 @@
                 <div class="text-xs text-gray-400">Design • Secondary Programmer • Builder</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <span class="text-gray-500">Photo</span>
               </div>
@@ -350,7 +357,7 @@
                 <div class="text-xs text-gray-400">Strategy • Support</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <span class="text-gray-500">Photo</span>
               </div>
@@ -359,7 +366,7 @@
                 <div class="text-xs text-gray-400">Programming • Portfolio • Outreach</div>
               </div>
             </div>
-            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow">
+            <div class="p-4 rounded-xl bg-[#071022]/60 border border-white/5 text-center neon-glow card-hover">
               <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center overflow-hidden ring-1 ring-white/5">
                 <span class="text-gray-500">Photo</span>
               </div>
@@ -393,16 +400,16 @@
           <!-- Panel that contains sponsor logos; can be hidden by the toggle -->
           <div id="sponsors-panel" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
             <!-- Placeholder sponsor logos -->
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow card-hover">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor A</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow card-hover">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor B</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow card-hover">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor C</text></svg>
             </div>
-            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow">
+            <div class="p-4 rounded-lg bg-[#071022]/60 border border-white/5 flex items-center justify-center h-20 neon-glow card-hover">
               <svg class="w-24 h-8 text-gray-500" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="30" fill="#0b1730" rx="4"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7280" font-size="8">Sponsor D</text></svg>
             </div>
           </div>
@@ -434,7 +441,7 @@
             <div class="mt-4 grid gap-6"
                  style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
               <!-- FLL Mentorship -->
-              <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow">
+              <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow card-hover">
                 <div class="flex items-start gap-3">
                   <div class="w-12 h-12 rounded-md bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center neon-glow ring-1 ring-white/5 overflow-hidden">
                     <!-- Replace with an icon or small image -->
@@ -450,7 +457,7 @@
               </article>
               <!-- OCE Stem Night -->
               <!-- Copy Paste from here -->
-              <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow">
+              <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow card-hover">
                 <div class="flex items-start gap-3">
                   <div class="w-12 h-12 rounded-md bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center neon-glow ring-1 ring-white/5 overflow-hidden">
                     <svg class="w-6 h-6 text-neon" viewBox="0 0 24 24" fill="none"><path d="M3 8l7-5 7 5v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -463,7 +470,7 @@
                 <div class="mt-3 text-xs text-gray-400">Date: <strong>Sept 2025</strong> • Location: <strong>Olive Chapel Elementary</strong></div>
               </article>
               <!-- To Here -->
-               <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow">
+               <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] neon-glow card-hover">
                 <div class="flex items-start gap-3">
                   <div class="w-12 h-12 rounded-md bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center neon-glow ring-1 ring-white/5 overflow-hidden">
                     <!-- Replace with an icon or small image -->
@@ -479,7 +486,7 @@
 
               <!-- Template for developers to duplicate programmatically or by copy/paste -->
               <template id="outreach-item-template">
-                <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px]">
+                <article class="p-4 rounded-lg bg-[#071022]/40 border border-white/5 flex flex-col min-h-[120px] card-hover">
                   <div class="flex items-start gap-3">
                     <div class="w-12 h-12 rounded-md bg-gradient-to-tr from-[#081133] to-[#0b1730] flex items-center justify-center neon-glow ring-1 ring-white/5 overflow-hidden">
                       <!-- swap SVG with <img src="..." alt="..."> if desired -->
